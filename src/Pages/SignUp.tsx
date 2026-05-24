@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import StepAccountInfo from "../Components/SignUp/StepAccountInfo";
 import StepPersonalInfo from "../Components/SignUp/StepPersonalInfo";
@@ -25,7 +26,7 @@ const stepValidation: Record<number, (f: FormData) => boolean> = {
   4: (f) => f.eulaAccepted,
 };
 
-export default function Signup() {
+export default function SignupPage() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -39,7 +40,7 @@ export default function Signup() {
     allergies: "",
     eulaAccepted: false,
   });
-
+  const navigate = useNavigate();
   const updateField = (field: string, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
@@ -68,8 +69,11 @@ export default function Signup() {
       title: "Account Created!",
       text: "Welcome to PharmaSafe 🎉",
       confirmButtonColor: "#2563eb",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/home");
+      }
     });
-    console.log(formData);
   };
 
   const steps: Record<number, React.ReactNode> = {
