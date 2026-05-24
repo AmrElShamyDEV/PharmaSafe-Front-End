@@ -92,10 +92,13 @@ export default function PharmaSafeHomePage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pt-12 pb-10">
         <div className="grid lg:grid-rows-2 gap-10 items-center">
-          <h1 className="text-4xl font-bold text-bkack">Welcome back, <span className="text-blue-600">user</span>!</h1>
+          <h1 className="text-4xl font-bold text-bkack">
+            Welcome back, <span className="text-blue-600">user</span>!
+          </h1>
 
-
-          <h2 className="text-3xl font-bold text-blue-600">Pick up where you left off...</h2>
+          <h2 className="text-3xl font-bold text-blue-600">
+            Pick up where you left off...
+          </h2>
         </div>
       </section>
 
@@ -125,25 +128,93 @@ export default function PharmaSafeHomePage() {
         </div>
       </section>
 
-      {/* Quick Actions */}
+      {/* Medication Schedule */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-6">
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
-          <h3 className="text-xl font-bold mb-5">Quick Actions</h3>
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-xl font-bold">Medication Schedule</h3>
+            <button className="text-sm text-blue-600 font-medium hover:underline">
+              Manage All
+            </button>
+          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {quickActions.map((action) => {
-              const Icon = action.icon;
-
-              return (
-                <button
-                  key={action.label}
-                  className="p-5 rounded-2xl bg-blue-50 hover:bg-blue-100 hover:shadow-md hover:-translate-y-1 transition flex items-center gap-3 font-medium"
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                name: "Panadol 500mg",
+                time: "8:00 AM",
+                taken: true,
+                dose: "1 tablet",
+              },
+              {
+                name: "Amoxil 250mg",
+                time: "1:00 PM",
+                taken: false,
+                dose: "1 capsule",
+              },
+              {
+                name: "Metformin 500mg",
+                time: "9:00 PM",
+                taken: false,
+                dose: "2 tablets",
+              },
+            ].map((med, i) => (
+              <div
+                key={i}
+                className={`flex items-start gap-4 p-4 rounded-2xl border transition ${
+                  med.taken
+                    ? "bg-blue-50 border-blue-100"
+                    : "bg-white border-slate-200 hover:border-blue-300"
+                }`}
+              >
+                {/* Icon */}
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                    med.taken ? "bg-blue-100" : "bg-slate-100"
+                  }`}
                 >
-                  <Icon className="w-5 h-5 text-blue-600" />
-                  {action.label}
-                </button>
-              );
-            })}
+                  <Pill
+                    className={`w-5 h-5 ${med.taken ? "text-blue-600" : "text-slate-400"}`}
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm truncate">{med.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {med.dose} · {med.time}
+                  </p>
+                  <span
+                    className={`inline-block mt-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                      med.taken
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-slate-100 text-slate-500"
+                    }`}
+                  >
+                    {med.taken ? "✓ Taken" : "Pending"}
+                  </span>
+                </div>
+
+                {/* Checkbox */}
+                {!med.taken && (
+                  <button className="shrink-0 w-7 h-7 rounded-full border-2 border-blue-300 hover:bg-blue-100 hover:border-blue-500 transition mt-0.5" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-6">
+            <div className="flex justify-between text-sm text-slate-500 mb-2">
+              <span>Today's Progress</span>
+              <span>1 of 3 taken</span>
+            </div>
+            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div
+                className="h-2 bg-blue-500 rounded-full"
+                style={{ width: "33%" }}
+              />
+            </div>
           </div>
         </div>
       </section>

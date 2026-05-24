@@ -351,29 +351,7 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* Settings */}
-          <div className="bg-white rounded-3xl shadow-xl border border-blue-100 p-6">
-            <h3 className="text-xl font-bold mb-5">
-              Account Settings
-            </h3>
-
-            <div className="space-y-3">
-              {[
-                ["Change Password", Lock],
-                ["Notifications Settings", BellRing],
-                ["Privacy Settings", Eye],
-                ["Logout", LogOut],
-              ].map(([label, Icon]) => (
-                <button
-                  key={label}
-                  className="w-full px-4 py-3 rounded-2xl flex items-center gap-3 font-medium transition hover:shadow-md bg-blue-50 text-blue-700 hover:bg-blue-100"
-                >
-                  <Icon className="w-4 h-4" />
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
+          
 
           {/* Insights */}
           <div className="bg-blue-600 rounded-3xl shadow-xl p-6 text-white">
